@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->frame_Home->raise();
     //qDebug() << this->thread()->currentThreadId();
     mSocket = new socket;
+    camera = new Camera;
     updateDisplay_timeid = startTimer(100);
     qDebug() << mSocket->getStatus();
 }
@@ -71,28 +72,43 @@ void MainWindow::timerEvent(QTimerEvent *event)
             ui->pushButton_connectRobot->setText("Disconnect");
             ui->pushButton_connectRobot->setEnabled(true);
             receiveData();
+            uiUpdate();
         }
         else
             ui->pushButton_connectRobot->setText("Connect");
     }
 }
 
+void MainWindow::uiUpdate()
+{
+    // set TCP
+    ui->label_FramePos0->setText(QString::number(ToolCenterPoint[0]*1000, 'f', 3));
+    ui->label_FramePos1->setText(QString::number(ToolCenterPoint[1]*1000, 'f', 3));
+    ui->label_FramePos2->setText(QString::number(ToolCenterPoint[2]*1000, 'f', 3));
+    ui->label_FramePos3->setText(QString::number(ToolCenterPoint[3], 'f', 5));
+    ui->label_FramePos4->setText(QString::number(ToolCenterPoint[4], 'f', 5));
+    ui->label_FramePos5->setText(QString::number(ToolCenterPoint[5], 'f', 5));
+
+    // set joint
+    ui->label_JointPos0->setText(QString::number(jointPos[0], 'f', 5));
+    ui->label_JointPos1->setText(QString::number(jointPos[1], 'f', 5));
+    ui->label_JointPos2->setText(QString::number(jointPos[2], 'f', 5));
+    ui->label_JointPos3->setText(QString::number(jointPos[3], 'f', 5));
+    ui->label_JointPos4->setText(QString::number(jointPos[4], 'f', 5));
+    ui->label_JointPos5->setText(QString::number(jointPos[5], 'f', 5));
+
+}
+
 
 void MainWindow::on_pushButton_connectRobot_clicked()
 {
-    // change button state
-    QString buttonStatus = ui->pushButton_connectRobot->text();
-    QThread *tcpthread = new QThread;
-
-    if(buttonStatus == "Connect")
+    //qDebug() << mSocket->getStatus();
+    if(!mSocket->getStatus())
     {
         ui->pushButton_connectRobot->setText("Connecting...");
         ui->pushButton_connectRobot->setEnabled(false);
         // connect
-        // create new thread
-        mSocket->moveToThread(tcpthread);
-        connect(tcpthread, SIGNAL(started()), mSocket, SLOT(startConnecting()));
-        tcpthread->start();
+        mSocket->startConnecting();        
     }
     else
     {
@@ -108,23 +124,30 @@ void MainWindow::on_pushButton_connectRobot_clicked()
 
 void MainWindow::on_pushButton_connectCam_clicked()
 {
-    QThread *CamThread = new QThread;
-    Camera *camera = new Camera;
+    qDebug() << camera->cameraStatus();
+    if(!camera->cameraStatus())
+    {
+        QThread *CamThread = new QThread;
+        camera->frameConfig(640, 480, 320, 240, 30);
 
-    camera->frameConfig(640, 480, 320, 240, 30);
+        camera->moveToThread(CamThread);
+        // Connect the signal from the camera to the slot of the window
+        // QApplication::connect(&camera, SIGNAL(framesReady(QImage, QImage)), this, SLOT(receiveFrame(QImage, QImage)));
+        connect(CamThread, SIGNAL(started()), camera, SLOT(startCapture()));
+        //connect(CamThread, SIGNAL(finished()),camera, SLOT(stop());
+        QApplication::connect(camera, SIGNAL(framesReady(QImage)), this, SLOT(receiveFrame(QImage)));
 
-    camera->moveToThread(CamThread);
-    // Connect the signal from the camera to the slot of the window
-    // QApplication::connect(&camera, SIGNAL(framesReady(QImage, QImage)), this, SLOT(receiveFrame(QImage, QImage)));
-    connect(CamThread, SIGNAL(started()), camera, SLOT(startCapture()));
-    QApplication::connect(camera, SIGNAL(framesReady(QImage)), this, SLOT(receiveFrame(QImage)));
-
-    CamThread->start();
+        CamThread->start();
+    }
+    else
+        camera->stop();
 }
 
 void MainWindow::on_pushButton_connectGripper_clicked()
 {
-
+    QString str("powerdown");
+    //qDebug() << str;
+    //mSocket->SocketWrite(QString);
 }
 
 void MainWindow::on_pushButton_connectMag_clicked()
@@ -137,12 +160,16 @@ void MainWindow::requsetTCPstatus()
     if(mSocket->getStatus())
     {
         ui->pushButton_connectRobot->setText("Disconnect");
+        ui->label_robotConnSta->setText("True");
         ui->pushButton_connectRobot->setEnabled(true);
+
     }
     else
+    {
         ui->pushButton_connectRobot->setText("Connect");
+        ui->label_robotConnSta->setText("False");
+    }
 }
-
 void MainWindow::on_pushButton_home_clicked()
 {
     ui->frame_Home->raise();

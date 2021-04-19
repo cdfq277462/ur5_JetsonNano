@@ -5,6 +5,7 @@
 #include <QLabel>
 
 #include "socket.h"
+#include "Camera.h"
 namespace Ui {
 class MainWindow;
 }
@@ -25,6 +26,8 @@ public slots:
 private slots:
     void timerEvent(QTimerEvent *event);
 
+    void uiUpdate();
+
     void on_pushButton_connectRobot_clicked();
 
     void on_pushButton_connectCam_clicked();
@@ -43,6 +46,8 @@ private:
     int updateDisplay_timeid;
 
     socket *mSocket;
+    Camera *camera;
+    QThread *CamThread;
 };
 
 #endif // MAINWINDOW_H

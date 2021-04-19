@@ -24,6 +24,8 @@ public slots:
     // If called it will stop the thread
     void stop() { camera_running = false; }
 
+    bool cameraStatus();
+
 private:
     // Realsense configuration structure, it will define streams that need to be opened
     rs2::config cfg;

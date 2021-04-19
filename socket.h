@@ -31,6 +31,8 @@ public slots:
     void bytesWriten(qint64);
     void readyRead();
 
+    void SocketWrite(QString);
+
     bool TCPStatus();
 
 private:

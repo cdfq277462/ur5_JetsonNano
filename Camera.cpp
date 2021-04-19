@@ -1,10 +1,20 @@
+/***********
+ *
+ * Not compelet:
+ *
+ * run/stop logic
+ *
+ *
+ *
+ * **************************/
+
 #include "Camera.h"
 
 Camera::Camera()
 //Camera::Camera(int rgb_width, int rgb_height, int depth_width, int depth_height, int fps)
 {    
     // Start our pipeline
-
+    camera_running = false;
     //pipe.start();
 }
 
@@ -17,6 +27,7 @@ void Camera::frameConfig(int rgb_width, int rgb_height, int depth_width, int dep
     cfg.enable_stream(RS2_STREAM_COLOR, rgb_width, rgb_height, RS2_FORMAT_RGB8, fps);
     //cfg.enable_stream(RS2_STREAM_COLOR);
     pipe.start(cfg);
+    camera_running = true;
 }
 
 
@@ -42,6 +53,11 @@ void Camera::startCapture()
         //emit framesReady(q_rgb, q_depth);
 
     }
+}
+
+bool Camera::cameraStatus()
+{
+    return camera_running;
 }
 
 QImage realsenseFrameToQImage(const rs2::frame &f)
