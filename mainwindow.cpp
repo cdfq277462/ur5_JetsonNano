@@ -24,18 +24,19 @@ MainWindow::MainWindow(QWidget *parent) :
     mSocket = new socket;
     camera = new Camera;
     updateDisplay_timeid = startTimer(100);
-    qDebug() << mSocket->getStatus();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
+
 }
 
-void MainWindow::receiveFrame(QImage rgb)
+void MainWindow::receiveFrame(QImage rgb, QImage depth)
 {
     ui->label_rgb->setPixmap(QPixmap::fromImage(rgb));
-    ui->label_depth->setPixmap(QPixmap::fromImage(rgb));
+    ui->label_depth->setPixmap(QPixmap::fromImage(depth));
 }
 
 void MainWindow::receiveData()
@@ -124,18 +125,18 @@ void MainWindow::on_pushButton_connectRobot_clicked()
 
 void MainWindow::on_pushButton_connectCam_clicked()
 {
-    qDebug() << camera->cameraStatus();
+    //qDebug() << camera->cameraStatus();
     if(!camera->cameraStatus())
     {
         QThread *CamThread = new QThread;
-        camera->frameConfig(640, 480, 320, 240, 30);
+        camera->frameConfig(640, 480, 640, 480, 15);
 
         camera->moveToThread(CamThread);
         // Connect the signal from the camera to the slot of the window
         // QApplication::connect(&camera, SIGNAL(framesReady(QImage, QImage)), this, SLOT(receiveFrame(QImage, QImage)));
         connect(CamThread, SIGNAL(started()), camera, SLOT(startCapture()));
         //connect(CamThread, SIGNAL(finished()),camera, SLOT(stop());
-        QApplication::connect(camera, SIGNAL(framesReady(QImage)), this, SLOT(receiveFrame(QImage)));
+        QApplication::connect(camera, SIGNAL(framesReady(QImage, QImage)), this, SLOT(receiveFrame(QImage, QImage)));
 
         CamThread->start();
     }

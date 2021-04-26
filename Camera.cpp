@@ -21,7 +21,7 @@ Camera::Camera()
 void Camera::frameConfig(int rgb_width, int rgb_height, int depth_width, int depth_height, int fps)
 {
     // Enable depth stream with given resolution. Pixel will have a bit depth of 16 bit
-    //cfg.enable_stream(RS2_STREAM_DEPTH, depth_width, depth_height, RS2_FORMAT_Z16, fps);
+    cfg.enable_stream(RS2_STREAM_DEPTH, depth_width, depth_height, RS2_FORMAT_Z16, fps);
 
     // Enable RGB stream as frames with 3 channel of 8 bit
     cfg.enable_stream(RS2_STREAM_COLOR, rgb_width, rgb_height, RS2_FORMAT_RGB8, fps);
@@ -40,17 +40,17 @@ void Camera::startCapture()
 
 
         // Let's get our depth frame
-        //rs2::depth_frame depth = frames.get_depth_frame();
+        rs2::depth_frame depth = frames.get_depth_frame();
         // And our rgb frame
         rs2::frame rgb = frames.get_color_frame();
 
         // Let's convert them to QImage
         auto q_rgb = realsenseFrameToQImage(rgb);
-        //auto q_depth = realsenseFrameToQImage(depth);
+        auto q_depth = realsenseFrameToQImage(depth);
 
         // And finally we'll emit our signal
-        emit framesReady(q_rgb);
-        //emit framesReady(q_rgb, q_depth);
+        //emit framesReady(q_rgb);
+        emit framesReady(q_rgb, q_depth);
 
     }
 }
@@ -73,14 +73,14 @@ QImage realsenseFrameToQImage(const rs2::frame &f)
         auto r = QImage((uchar*) f.get_data(), w, h, w*3, QImage::Format_RGB888);
         return r;
     }
-    /*
+
     else if (f.get_profile().format() == RS2_FORMAT_Z16)
     {
         // only if you have Qt > 5.13
-        auto r = QImage((uchar*) f.get_data(), w, h, w*2, QImage::Format_Grayscale8);
+        auto r = QImage((uchar*) f.get_data(), w, h, w*2, QImage::Format_Grayscale16);
         return r;
     }
-    */
+
 
     throw std::runtime_error("Frame format is not supported yet!");
 }

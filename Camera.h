@@ -42,7 +42,7 @@ private:
 signals:
     // A signal sent by our class to notify that there are frames that need to be processed
     //void framesReady(QImage frameRGB, QImage frameDepth);
-    void framesReady(QImage frameRGB);
+    void framesReady(QImage, QImage);
 
 };
 // A function that will convert realsense frames to QImage

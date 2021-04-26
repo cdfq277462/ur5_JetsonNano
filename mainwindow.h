@@ -20,7 +20,7 @@ public:
     double HexToDouble(QByteArray);
 public slots:
     //void receiveFrame(QImage rgb, QImage depth);
-    void receiveFrame(QImage rgb);
+    void receiveFrame(QImage, QImage);
     void receiveData();
 
 private slots:

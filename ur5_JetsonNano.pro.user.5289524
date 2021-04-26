@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2021-04-22T14:27:34. -->
+<!-- Written by QtCreator 4.5.2, 2021-04-16T17:04:40. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{c1a869a3-eb45-4a85-8317-92ea30eb90e9}</value>
+  <value type="QByteArray">{5289524f-6156-4ee9-93e3-608261dfd77f}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -61,7 +61,7 @@
   <valuemap type="QVariantMap">
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{af8b4e55-02e7-48d6-8df5-b586395744e7}</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{ccec815f-4815-4fb4-af98-d5f52f726195}</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -302,7 +302,7 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes">
-     <value type="QString">QT_QPA_PLATFORM=eglfs</value>
+     <value type="QString">QT_QPA_PLATFORM=offscreen</value>
     </valuelist>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">ur5_JetsonNano</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
