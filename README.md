@@ -7,16 +7,16 @@ Use Qt to develop embedded system
 
 
 ### TCP Socket
-Qt provide complete library for TCP or UDP socket.
+Qt provide complete library for TCP or UDP socket.<br><br/>
 
-In `ur5_JetsonNano.pro`
+In `ur5_JetsonNano.pro`<br><br/>
 add line :
 ```
 QT += network
 ```
 
-Create new h/cpp file for TCP socket, here I named `socket.h` & `socket.cpp`.
-In `socket.h`:
+Create new h/cpp file for TCP socket, here I named `socket.h` & `socket.cpp`.<br><br/>
+In `socket.h`:<br><br/>
 first, include `QTcpSocket`:
 ```cpp
 #include <QTcpSocket>
@@ -44,7 +44,7 @@ private:
     QTcpSocket *tcpsocket_read;
     QByteArray receiveData;
 ```
-In `socket.cpp` :
+In `socket.cpp` :<br><br/>
 first, create new tcp object and connect signals & slots :
 ```cpp
 socket::socket()
@@ -131,7 +131,7 @@ bool socket::TCPStatus()
 }
 ```
 
-In `mainwindow.h`
+In `mainwindow.h` : <br><br/>
 first we included `socket.h`
 ```cpp
 #include "socket.h"
