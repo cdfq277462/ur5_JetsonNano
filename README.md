@@ -2,14 +2,15 @@
 ## Introduct
 Use Qt to develop embedded system
 - Socket connected to UR5
-- Intel realsense D435 capture image
+- Intel realsense D435 [capture image]()
 - 
 
 
 ### TCP Socket
 Qt provide complete library for TCP or UDP socket.<br><br/>
 
-In `ur5_JetsonNano.pro`<br><br/>
+In `ur5_JetsonNano.pro`
+
 add line :
 ```
 QT += network
