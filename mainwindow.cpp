@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "socket.h"
 #include <librealsense2/rs.hpp>
-#include "Camera.h"
+#include "camerathread.h"
 
 #include <QtCore>
 #include <QtGui>
@@ -21,8 +21,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->frame_Home->raise();
     //qDebug() << this->thread()->currentThreadId();
+    // create socket thread
     mSocket = new socket;
-    camera = new Camera;
+    // create camera thread
+    CamThread = new cameraThread();
+    // start ui update timer
     updateDisplay_timeid = startTimer(100);
 }
 
@@ -126,22 +129,17 @@ void MainWindow::on_pushButton_connectRobot_clicked()
 void MainWindow::on_pushButton_connectCam_clicked()
 {
     //qDebug() << camera->cameraStatus();
-    if(!camera->cameraStatus())
+    if(!CamThread->cameraStatus())
     {
-        QThread *CamThread = new QThread;
-        camera->frameConfig(640, 480, 640, 480, 15);
+        // open camera
 
-        camera->moveToThread(CamThread);
-        // Connect the signal from the camera to the slot of the window
-        // QApplication::connect(&camera, SIGNAL(framesReady(QImage, QImage)), this, SLOT(receiveFrame(QImage, QImage)));
-        connect(CamThread, SIGNAL(started()), camera, SLOT(startCapture()));
-        //connect(CamThread, SIGNAL(finished()),camera, SLOT(stop());
-        QApplication::connect(camera, SIGNAL(framesReady(QImage, QImage)), this, SLOT(receiveFrame(QImage, QImage)));
-
+        connect(CamThread, SIGNAL(framesReady(QImage,QImage)), this, SLOT(receiveFrame(QImage,QImage)));
         CamThread->start();
+
+
     }
     else
-        camera->stop();
+        CamThread->stop();
 }
 
 void MainWindow::on_pushButton_connectGripper_clicked()

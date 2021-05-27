@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,6 +17,9 @@ TEMPLATE = app
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
+DEFINES += OPENCV_DATA_DIR=\\\"/usr/local/share/opencv4/\\\"
+DEFINES += TIME_MEASURE=1
+
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -24,20 +27,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    camerathread.cpp \
         main.cpp \
         mainwindow.cpp \
     socket.cpp \
-    Camera.cpp
 
 HEADERS += \
+    camerathread.h \
+    include/adjustthreshold.h \
+    include/adjustthreshold_global.h \
         mainwindow.h \
     socket.h \
-    Camera.h
 
 FORMS += \
         mainwindow.ui
 
 INCLUDEPATH += /usr/include/opencv2 \
-                /usr/include/librealsense2
-
+                /usr/include/librealsense2  \
+                /usr/local/include/opencv4
 LIBS += -L$$DESTDIR/ -lrealsense2
+LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_video -lopencv_videoio -lopencv_objdetect -lopencv_dnn      \
+    += -L./ -ladjustthreshold

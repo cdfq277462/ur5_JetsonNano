@@ -5,7 +5,7 @@
 #include <QLabel>
 
 #include "socket.h"
-#include "Camera.h"
+#include "camerathread.h"
 namespace Ui {
 class MainWindow;
 }
@@ -46,8 +46,8 @@ private:
     int updateDisplay_timeid;
 
     socket *mSocket;
-    Camera *camera;
-    QThread *CamThread;
+
+    cameraThread *CamThread;
 };
 
 #endif // MAINWINDOW_H
