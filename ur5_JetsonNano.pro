@@ -46,5 +46,5 @@ INCLUDEPATH += /usr/include/opencv2 \
                 /usr/include/librealsense2  \
                 /usr/local/include/opencv4
 LIBS += -L$$DESTDIR/ -lrealsense2
-LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_video -lopencv_videoio -lopencv_objdetect -lopencv_dnn      \
-    += -L./ -ladjustthreshold
+LIBS += -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_imgcodecs -lopencv_video -lopencv_videoio -lopencv_objdetect -lopencv_dnn
+LIBS += -L/home/draw/Desktop/Qt/build-ur5_JetsonNano-unknown-Debug -ladjustthreshold

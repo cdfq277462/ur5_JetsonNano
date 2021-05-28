@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1833</width>
-    <height>1080</height>
+    <width>1600</width>
+    <height>1043</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
@@ -18,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1920</width>
-    <height>1080</height>
+    <width>1600</width>
+    <height>1200</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -31,7 +37,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1651</width>
+      <width>1361</width>
       <height>990</height>
      </rect>
     </property>
@@ -309,8 +315,8 @@
    <widget class="QWidget" name="layoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>1670</x>
-      <y>20</y>
+      <x>1370</x>
+      <y>10</y>
       <width>121</width>
       <height>341</height>
      </rect>
@@ -413,7 +419,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1651</width>
+      <width>1361</width>
       <height>990</height>
      </rect>
     </property>
@@ -430,8 +436,8 @@
    <widget class="QWidget" name="layoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>1670</x>
-      <y>780</y>
+      <x>1370</x>
+      <y>750</y>
       <width>145</width>
       <height>197</height>
      </rect>
@@ -581,7 +587,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1651</width>
+      <width>1361</width>
       <height>990</height>
      </rect>
     </property>
@@ -597,8 +603,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>1400</x>
-       <y>280</y>
+       <x>1130</x>
+       <y>270</y>
        <width>231</width>
        <height>71</height>
       </rect>
@@ -651,7 +657,7 @@ color: rgb(255, 255, 255);</string>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>980</x>
+       <x>710</x>
        <y>290</y>
        <width>411</width>
        <height>54</height>
@@ -1137,8 +1143,8 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>370</y>
-       <width>1621</width>
+       <y>360</y>
+       <width>1061</width>
        <height>621</height>
       </rect>
      </property>
@@ -1171,7 +1177,7 @@ color: rgb(255, 255, 255);</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1651</width>
+      <width>1361</width>
       <height>990</height>
      </rect>
     </property>
@@ -1190,7 +1196,7 @@ color: rgb(255, 255, 255);</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1651</width>
+      <width>1361</width>
       <height>990</height>
      </rect>
     </property>
@@ -1281,7 +1287,7 @@ color: rgb(255, 255, 255);</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1651</width>
+      <width>1361</width>
       <height>990</height>
      </rect>
     </property>
@@ -1812,15 +1818,15 @@ color: rgb(255, 255, 255);</string>
    <zorder>frame_Connection</zorder>
    <zorder>frame_SettingWizard</zorder>
    <zorder>frame_Detection</zorder>
-   <zorder>frame_Position</zorder>
    <zorder>frame_Home</zorder>
+   <zorder>frame_Position</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1833</width>
+     <width>1600</width>
      <height>29</height>
     </rect>
    </property>

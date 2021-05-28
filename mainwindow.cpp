@@ -3,6 +3,7 @@
 #include "socket.h"
 #include <librealsense2/rs.hpp>
 #include "camerathread.h"
+#include "include/adjustthreshold.h"
 
 #include <QtCore>
 #include <QtGui>

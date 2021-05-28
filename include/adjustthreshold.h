@@ -21,6 +21,8 @@ public:
 
     double getAdjustThreshold(int, double);
 
+    double getAdjustThreshold(cv::Mat, int, double);
+
     cv::Mat kcircle(int);
 
     cv::Mat morphologyClosingOpening(cv::Mat, int);

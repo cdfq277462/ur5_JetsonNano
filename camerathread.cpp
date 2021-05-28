@@ -4,6 +4,7 @@
 #endif
 
 #include "camerathread.h"
+#include "include/adjustthreshold.h"
 //#include "include/yolo_v2_class.hpp"
 //#pragma comment(lib, "include/yolo_cpp_dll.lib")  // imported DLL
 
@@ -53,8 +54,13 @@ void cameraThread::run()
 #ifdef TIME_MEASURE
         int64 t0 = cv::getTickCount();
 #endif
-
-        detectObjectsDNN(color_image);
+        Adjustthreshold adjustThreshold;
+        cv::Mat grayImg;
+        cv::cvtColor(color_image, grayImg, cv::COLOR_BGR2GRAY);
+        double threshold = adjustThreshold.getAdjustThreshold(grayImg, THRESHOLD_OTSU, 0.255);
+        cv::threshold(grayImg, grayImg, threshold, 255, cv::THRESH_BINARY);
+        grayImg = adjustThreshold.morphologyClosingOpening(grayImg, 3);
+        //detectObjectsDNN(color_image);
 
 #ifdef TIME_MEASURE
         int64 t1 = cv::getTickCount();
@@ -63,10 +69,11 @@ void cameraThread::run()
 
 #endif
 
-        QImage q_color_image( color_image.data, color_image.cols, color_image.rows, color_image.step, QImage::Format_RGB888 );
+        QImage q_gray_image(grayImg.data, grayImg.cols, grayImg.rows, grayImg.step, QImage::Format_Grayscale8);
+        QImage q_color_image(color_image.data, color_image.cols, color_image.rows, color_image.step, QImage::Format_RGB888);
         // And finally we'll emit our signal
         //emit framesReady(q_rgb);
-        emit framesReady(q_color_image, q_depth);
+        emit framesReady(q_color_image, q_gray_image);
         //emit framesReady(q_rgb, q_depth);
     }
 }
